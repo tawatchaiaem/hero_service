@@ -16,7 +16,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: Text('Hero Service'),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.red,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
