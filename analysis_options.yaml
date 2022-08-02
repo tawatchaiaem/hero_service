@@ -27,7 +27,8 @@ linter:
     prefer_const_literals_to_create_immutables: false
     prefer_const_constructors: false
     prefer_final_fields: false
-    unused_field:false
+    unused_field: false
+    sort_child_properties_last: false
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
