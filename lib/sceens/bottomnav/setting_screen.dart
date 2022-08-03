@@ -11,8 +11,20 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('setting page'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/lockscreen');
+            },
+            child: Text(
+              'Log out',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+        ],
       ),
     );
   }

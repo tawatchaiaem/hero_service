@@ -12,7 +12,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   final introKey = GlobalKey<_WelcomeScreenState>();
 
   void _onIntroEnd(context) {
-    Navigator.pushReplacementNamed(context, '/dashboard');
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   Widget _buildImage(String assetName) {
