@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hero_service_app/sceens/components/passwordwidget.dart';
+import 'package:hero_service_app/services/rest_api.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -90,6 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       formKey.currentState!.save();
                       print(_email);
                       print(_password);
+                      var userData = {'email': _email, 'password': _password};
+                      _loginProcess(userData);
                     }
                   },
                   child: const Text('Login'),
@@ -99,6 +104,39 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _loginProcess(userData) async {
+    var response = await CallAPI().loginAPI(userData);
+    print(response);
+    var body = json.decode(response.body);
+
+    if (body['status'] == 'success' && body['data']['status'] == '1') {
+      Navigator.pushReplacementNamed(context, '/dashboard');
+    } else {
+      _showDialog('Error', 'Error Message');
+    }
+    print(body['message']);
+  }
+
+  void _showDialog(title, msg) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(msg),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
