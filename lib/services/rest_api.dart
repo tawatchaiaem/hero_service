@@ -7,11 +7,10 @@ class CallAPI {
   final String baseAPIURL =
       'https://www.itgenius.co.th/sandbox_api/flutteradvapi/public/api/';
 
-  
-
   // Login API
-  loginAPI(data) async { 
+  loginAPI(data) async {
     print(baseAPIURL);
+    print(data);
     return await http.post(
       Uri.parse(baseAPIURL + 'login'),
       body: jsonEncode(data),

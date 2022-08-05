@@ -16,8 +16,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // theme: XXX,
-        initialRoute: '/welcome',
-        routes: routes);
+      // theme: XXX,
+      initialRoute: '/welcome',
+      routes: routes,
+    );
   }
 }
