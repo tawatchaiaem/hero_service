@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
   SettingScreen({Key? key}) : super(key: key);
@@ -16,7 +17,13 @@ class _SettingScreenState extends State<SettingScreen> {
         children: [
           Container(),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              // สร้าง Object แบบ SharedPreferences
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+
+              sharedPreferences.setInt('appStep', 3);
+
               Navigator.pushReplacementNamed(context, '/lockscreen');
             },
             child: Text(

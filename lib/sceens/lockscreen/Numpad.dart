@@ -155,9 +155,11 @@ class _NumpadState extends State<Numpad> {
 
     if (number.length == widget.length) {
       if (number == '123456') {
-        // SharedPreferences sharedPreferences =
-        //     await SharedPreferences.getInstance();
-        // sharedPreferences.setInt('appStep', 2);
+        // สร้าง Object แบบ SharedPreferences
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setInt('appStep', 2);
+
         Navigator.pushReplacementNamed(context, '/dashboard');
       } else {
         number = '';
