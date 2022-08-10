@@ -121,7 +121,9 @@ class _LoginScreenState extends State<LoginScreen> {
             await SharedPreferences.getInstance();
 
         sharedPreferences.setInt('appStep', 2);
-
+        sharedPreferences.setString('storeFullname',
+            body['data']['firstname'] + body['data']['lastname']);
+        sharedPreferences.setString('storeAvatar', body['data']['avatar']);
         Navigator.pushReplacementNamed(context, '/dashboard');
       } else {
         _showDialog('ข้อมูลผิดพลาด', 'ข้อมูลไม่ถูกต้อง ลอง');
