@@ -14,6 +14,8 @@ class _MarketScreenState extends State<MarketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 15.0, left: 15.0, bottom: 15.0),
@@ -26,7 +28,7 @@ class _MarketScreenState extends State<MarketScreen> {
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
             child: FutureBuilder(
-              future: CallAPI().getNews(),
+              future: CallAPI().getLastNews(),
               builder: (BuildContext context,
                   AsyncSnapshot<List<NewsModel?>> snapshot) {
                 if (snapshot.hasError) {
@@ -35,7 +37,35 @@ class _MarketScreenState extends State<MarketScreen> {
                   );
                 } else if (snapshot.connectionState == ConnectionState.done) {
                   List<NewsModel?>? news = snapshot.data;
-                  return _listViewNews(news!);
+                  return _listViewLastNews(news!);
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0, left: 15.0, bottom: 15.0),
+            child: Text(
+              'ข่าวประกาศทั้งหมด',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.28,
+            child: FutureBuilder(
+              future: CallAPI().getAllNews(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<NewsModel?>> snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error  ${snapshot.error.toString()}'),
+                  );
+                } else if (snapshot.connectionState == ConnectionState.done) {
+                  List<NewsModel?>? news = snapshot.data;
+                  return _listViewAllNews(news!);
                 } else {
                   return Center(
                     child: CircularProgressIndicator(),
@@ -50,7 +80,7 @@ class _MarketScreenState extends State<MarketScreen> {
   }
 
   // สร้าง ListView สำหรับการแสดงข่าว
-  Widget _listViewNews(List<NewsModel?> news) {
+  Widget _listViewLastNews(List<NewsModel?> news) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: 10,
@@ -62,7 +92,8 @@ class _MarketScreenState extends State<MarketScreen> {
           height: MediaQuery.of(context).size.height * 0.4,
           child: InkWell(
             onTap: () {
-              print("TESTEST ");
+              Navigator.pushNamed(context, '/newsdetail',
+                  arguments: {'id': newsModel.id});
             },
             child: Card(
               child: Container(
@@ -71,7 +102,7 @@ class _MarketScreenState extends State<MarketScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 125.0,
+                      height: 100.0,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(newsModel.imageurl),
@@ -96,6 +127,7 @@ class _MarketScreenState extends State<MarketScreen> {
                             style: TextStyle(
                               fontSize: 16.0,
                             ),
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ],
@@ -106,6 +138,26 @@ class _MarketScreenState extends State<MarketScreen> {
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+
+  // สร้าง ListView สำหรับการแสดงข่าวทั้งหมด
+  Widget _listViewAllNews(List<NewsModel?> news) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        // Load model
+        NewsModel newsModel = news[index]!;
+        return ListTile(
+          leading: Icon(Icons.pages),
+          title: Text(
+            newsModel.topic,
+            overflow: TextOverflow.ellipsis,
+          ),
+          onTap: () {},
         );
       },
     );
