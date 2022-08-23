@@ -61,7 +61,36 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
         appBar: AppBar(
           title: Text('${_dataNews?.data?.topic ?? "..."}'),
         ),
-        body: Container(),
+        body: ListView(children: [
+          Container(
+            height: 200.0,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(_dataNews?.data?.imageurl ?? "..."),
+                fit: BoxFit.fill,
+                alignment: Alignment.topCenter,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              '${_dataNews?.data?.detail}',
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16.0),
+            child: Text(
+              '${_dataNews?.data?.createdAt}',
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16.0),
+            child: Text(
+              '${_dataNews?.data?.status}',
+            ),
+          )
+        ]),
       ),
     );
   }

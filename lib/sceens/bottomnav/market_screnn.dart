@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hero_service_app/models/NewsModel.dart';
 import 'package:hero_service_app/services/rest_api.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MarketScreen extends StatefulWidget {
   MarketScreen({Key? key}) : super(key: key);
@@ -157,9 +158,22 @@ class _MarketScreenState extends State<MarketScreen> {
             newsModel.topic,
             overflow: TextOverflow.ellipsis,
           ),
-          onTap: () {},
+          onTap: () {
+            _launchInBrowser(Uri.parse(newsModel.linkurl));
+          },
         );
       },
     );
+  }
+
+  // funtion launcher web screen
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.inAppWebView,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 }
