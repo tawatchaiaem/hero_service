@@ -16,6 +16,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _currentIndex = 2;
   String _title = 'Hero services';
+  late Widget _actionWidget;
 
   final List<Widget> _children = [
     MarketScreen(),
@@ -25,6 +26,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
     SettingScreen(),
   ];
 
+  // สร้าง widget action สำหรับไว้แยกแสดงผล Appbar
+  Widget _homeActionBar() {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, '/qrcode');
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(right: 15.0),
+        child: Row(
+          children: [
+            Icon(Icons.center_focus_strong),
+            Text('SCAN'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _marketActionBar() {
+    return InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.only(right: 15.0),
+        child: Row(
+          children: [
+            Icon(Icons.add),
+            Text('Add news'),
+          ],
+        ),
+      ),
+    );
+  }
+
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -33,67 +67,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
       switch (index) {
         case 0:
           _title = 'Market';
+
+          _actionWidget = _marketActionBar();
           break;
         case 1:
           _title = 'Booking';
+          _actionWidget = Container();
           break;
         case 2:
           _title = 'Services';
+          _actionWidget = _homeActionBar();
           break;
         case 3:
           _title = 'Notification';
+          _actionWidget = Container();
           break;
         case 4:
           _title = 'Setting';
+          _actionWidget = Container();
           break;
       }
     });
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _actionWidget = _homeActionBar();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('$_title')),
+        title: Text('$_title'),
+        actions: [_actionWidget],
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   onTap: onTabTapped,
-      //   currentIndex: _currentIndex,
-      //   backgroundColor: Colors.red,
-      //   type: BottomNavigationBarType.fixed,
-      //   selectedItemColor: Color.fromARGB(255, 248, 194, 194),
-      //   unselectedItemColor: Colors.white,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.business_center,
-      //         color: Colors.white,
-      //       ),
-      //       label: 'บริการ',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.shopping_cart,
-      //         color: Colors.white,
-      //       ),
-      //       label: 'ตลาด',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.library_books,
-      //         color: Colors.white,
-      //       ),
-      //       label: 'รายการจอง',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.menu,
-      //         color: Colors.white,
-      //       ),
-      //       label: 'setting',
-      //     )
-      //   ],
-      // ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.white,
         color: Colors.teal,
@@ -111,7 +121,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
         onTap: onTabTapped,
       ),
-
       body: _children[_currentIndex],
     );
   }
