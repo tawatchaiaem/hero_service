@@ -173,7 +173,7 @@ class _MarketScreenState extends State<MarketScreen> {
       url,
       mode: LaunchMode.inAppWebView,
     )) {
-      throw 'Could not launch $url';
+      throw 'Could not launch x $url';
     }
   }
 }
