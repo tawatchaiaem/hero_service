@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tawatchai.hero_service_app">
+     <uses-feature android:name="android.hardware.camera"
+                  android:required="true" />
+
    <application
         android:label="hero_service_app"
         android:name="${applicationName}"
