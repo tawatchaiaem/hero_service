@@ -2,6 +2,8 @@
     package="org.tawatchai.hero_service_app">
      <uses-feature android:name="android.hardware.camera"
                   android:required="true" />
+    
+    <uses-permission android:name="android.permission.CAMERA" />
 
    <application
         android:label="hero_service_app"

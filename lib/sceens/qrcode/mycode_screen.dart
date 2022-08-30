@@ -16,27 +16,27 @@ class _MyCodeScreenState extends State<MyCodeScreen> {
   Widget build(BuildContext context) {
     final qrdata = 'https://www.google.co.th/contact-us';
 
-    final qrFutureBuilder = FutureBuilder(
-      future: _loadOverlayImage(),
-      builder: (ctx, snapshot) {
-        final size = 250.0;
-        if (!snapshot.hasData) {
-          return Container(width: size, height: size);
-        }
-        return CustomPaint(
-          size: Size.square(size),
-          painter: QrPainter(
-            data: qrdata,
-            version: QrVersions.auto,
-            // size: 320.0,
-            embeddedImage: snapshot.data?.data(),
-            embeddedImageStyle: QrEmbeddedImageStyle(
-              size: Size.square(60),
-            ),
-          ),
-        );
-      },
-    );
+    // final qrFutureBuilder = FutureBuilder(
+    //   future: _loadOverlayImage(),
+    //   builder: (ctx, snapshot) {
+    //     final size = 250.0;
+    //     if (!snapshot.hasData) {
+    //       return Container(width: size, height: size);
+    //     }
+    //     return CustomPaint(
+    //       size: Size.square(size),
+    //       painter: QrPainter(
+    //         data: qrdata,
+    //         version: QrVersions.auto,
+    //         // size: 320.0,
+    //         embeddedImage: snapshot.data,
+    //         embeddedImageStyle: QrEmbeddedImageStyle(
+    //           size: Size.square(60),
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
 
     return Material(
       color: Colors.white,
@@ -49,7 +49,7 @@ class _MyCodeScreenState extends State<MyCodeScreen> {
               Expanded(
                 child: Center(
                   child: Center(
-                    child: qrFutureBuilder,
+                    child: Text('TETST'),
                   ),
                 ),
               ),
